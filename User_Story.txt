@@ -1,0 +1,14 @@
+
+USER STORY
+
+User looking to diversify portfolio into sectors with lower volatility and sensitivity to tragic events.
+    application askes user to provide current portfolio weight in 5 sectors (Stocks, precious metals, Real Estate, Fixed income, & commodities)
+
+System calculates portfolio volatility (STD) based on historical data 2001-current & provides preformance of each sector during this same time frame and recommends sectors with low volatility and resistence to critical events.
+
+System asks user if they would like to new calculate hypothetical allocation (CLI)
+    user enters hypothetical allocation 
+System calculates and provides user with hypithetical STD 
+
+
+      
