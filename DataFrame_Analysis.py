@@ -6,18 +6,31 @@ import yfinance as yf
 from yahoo_fin.stock_info import get_data
 import numpy as np
 import matplotlib.pyplot as plt
+import fire
+import sys
+import questionary
+
 
 ##User input weight
-# user_DJI_weight = int(input("Enter your Commodity weight of portfolio  as %:"))
-# user_GOLD_weight = int(input("Enter your Gold weight of portfolio as %:"))
-# user_IYR_weight = int(input("Enter your Real Estate weight of portfolio as %:"))
-# user_SPY_weight = int(input("Enter your Equity weight of portfolio as %:"))
-# user_VNMFX_weight = int(input("Enter your Fixed Income weight of portfolio as %:"))
-# print(f"User's Protfolio weight defined as,\nDJI(Commodity): %{user_DJI_weight}\nGOLD: %{user_GOLD_weight}\nIYR(Real Estate): %{user_IYR_weight}\nSPY(Equity): %{user_SPY_weight}\nVNMFX(Fixed Income): %{user_VNMFX_weight}")
+def get_user_info():
+    user_Commodity_weight = questionary.text("Enter your Commodity weight of portfolio  as %:").ask()
+    user_GOLD_weight = questionary.text("Enter your Gold weight of portfolio as %:").ask()
+    user_RE_weight = questionary.text("Enter your Real Estate weight of portfolio as %:").ask()
+    user_Equity_weight = questionary.text("Enter your Equity weight of portfolio as %:").ask()
+    user_Fixedincome_weight = questionary.text("Enter your Fixed Income weight of portfolio as %:").ask()
 
-# user_port_weight= [user_DJI_weight/100, user_GOLD_weight/100, user_IYR_weight/100,user_SPY_weight/100, user_VNMFX_weight/100]
-# print(user_port_weight)
-user_port_weight = (0.2,0.2,0.2,0.2,0.2)
+    user_Commodity_weight = float(user_Commodity_weight)/100
+    user_GOLD_weight = float(user_GOLD_weight)/100
+    user_RE_weight = float(user_RE_weight)/100
+    user_Equity_weight = float(user_Fixedincome_weight)/100
+    user_Fixedincome_weight = float(user_Fixedincome_weight)/100
+    return user_Commodity_weight,user_GOLD_weight,user_RE_weight,user_Equity_weight,user_Fixedincome_weight
+
+def Calc_user_returns(user_Commodity_weight,user_GOLD_weight,user_RE_weight,user_Equity_weight,user_Fixedincome_weight):
+    User_input = (user_Commodity_weight,user_GOLD_weight,user_RE_weight,user_Equity_weight,user_Fixedincome_weight)
+    wt_return_2001 = cumulative_returns_event_2001.mul(User_input)
+    print(f'your return during 911 is',wt_return_2001)
+    return 
 
 ##EVENT 2001 911 
 Commodity_2001 = get_data("DJI", start_date="7/11/2001", end_date="01/1/2002", index_as_date = True, interval="1d")
@@ -50,7 +63,7 @@ plt.savefig('sample.png')
 cumulative_returns_event_2001 = (1 + daily_returns_event_2001).cumprod() - 1
 cumulative_returns_event_2001.plot(figsize=(20, 10),title= "Cumulative Returns - Event 2001")
 #calcuate portfolio return on user allocation
-weighted_portfolio_return_event_2001 = cumulative_returns_event_2001* user_port_weight
+weighted_portfolio_return_event_2001 = cumulative_returns_event_2001
 
 ##Event 2001 Allocation Optimization
 # Initialize an empty list for storing the portfolio returns
@@ -124,7 +137,7 @@ sharpe_ratios_event_2003.plot.bar(figsize=(15, 10), title="Sharpe Ratios - Event
 daily_returns_event_2003.plot(figsize=(20, 10), title="Daily Returns - Event 2003")
 cumulative_returns_event_2003 = (1 + daily_returns_event_2003).cumprod() - 1
 cumulative_returns_event_2003.plot(figsize=(20, 10),title= "Cumulative Returns - Event 2003")
-weighted_portfolio_return_event_2003 = cumulative_returns_event_2003* user_port_weight
+weighted_portfolio_return_event_2003 = cumulative_returns_event_2003
 
 ##Event 2003 Allocation Optimization 
 # Initialize an empty list for storing the portfolio returns
@@ -199,7 +212,7 @@ daily_returns_event_2008.plot(figsize=(20, 10), title="Daily Returns - Event 200
 #Cumulative returns
 cumulative_returns_event_2008 = (1 + daily_returns_event_2008).cumprod() - 1
 cumulative_returns_event_2008.plot(figsize=(20, 10),title= "Cumulative Returns - Event 2008")
-weighted_portfolio_return_event_2008 = cumulative_returns_event_2008* user_port_weight
+weighted_portfolio_return_event_2008 = cumulative_returns_event_2008
 
 ##Event 2008 Allocation Optimazation
 # Initialize an empty list for storing the portfolio returns
@@ -274,7 +287,7 @@ daily_returns_event_2020.plot(figsize=(20, 10), title="Daily Returns - Event 202
 #Cumulative returns
 cumulative_returns_event_2020 = (1 + daily_returns_event_2020).cumprod() - 1
 cumulative_returns_event_2020.plot(figsize=(20, 10),title= "Cumulative Returns - Event 2020")
-weighted_portfolio_return_event_2020 = cumulative_returns_event_2020* user_port_weight
+weighted_portfolio_return_event_2020 = cumulative_returns_event_2020
 
 #Event 2020 Allocation Optimization
 # Initialize an empty list for storing the portfolio returns
@@ -348,7 +361,7 @@ sharpe_ratios_event_2022.plot.bar(figsize=(15, 10), title="Sharpe Ratios - Event
 daily_returns_event_2022.plot(figsize=(20, 10), title="Daily Returns - Event 2022")
 cumulative_returns_event_2022 = (1 + daily_returns_event_2022).cumprod() - 1
 cumulative_returns_event_2022.plot(figsize=(20, 10),title= "Cumulative Returns - Event 2022")
-weighted_portfolio_return_event_2022 = cumulative_returns_event_2022* user_port_weight
+weighted_portfolio_return_event_2022 = cumulative_returns_event_2022
 
 #Event 2022 Allocation Optimization 
 # Initialize an empty list for storing the portfolio returns
@@ -390,3 +403,15 @@ portfolios_2022 = pd.concat([df_weight_2022, df_dic_2022], axis=1, join='inner')
 rf = 0.0214
 optimal_risky_port_2022 = portfolios_2022.iloc[ ((portfolios_2022['Returns']-rf)/portfolios_2022['Volatility']).idxmax()]
 optimal_risky_port_2022
+
+
+def run():
+    """The main function for running the script."""
+
+    # # Get the applicant's information
+    user_Commodity_weight,user_GOLD_weight,user_RE_weight,user_Equity_weight,user_Fixedincome_weight = get_user_info()
+
+    calc_results = Calc_user_returns(user_Commodity_weight,user_GOLD_weight,user_RE_weight,user_Equity_weight,user_Fixedincome_weight)
+
+if __name__ == "__main__":
+    fire.Fire(run)
