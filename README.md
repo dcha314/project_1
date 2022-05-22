@@ -12,8 +12,6 @@ This application is written in python 3.9.7 with the modules below;
 * [questionary](https://github.com/tmbo/questionary) - For interactive user prompts and dialogs
 
 
-
-
 #Installation Guide
 Please install pandas and numpy modules to your python. 
 
@@ -21,6 +19,17 @@ pip install pandas
 
 pip install numpy
 
+import matplotlib.pyplot as plt
+
+import sys
+
+import time
+
+import datetime
+
+import yfinance as yf
+
+from yahoo_fin.stock_info import get_data
 
 
 #Review
@@ -28,7 +37,7 @@ pip install numpy
 Data frame and portfolio weight requested from user are combined in calculations such as daily and annual returns, standart and annual deviations, sharp ratios, cumulative returns, weighted cumulative portfolio returns.
 
 The program starts by launching a Command Line Interface or questionnaire which ask users to enter their current portfolio allocation in 5 sectors as percentages (Stocks, Real Estate, Precious Metals, Fixed Income, & Commodities) Please use 2 digits to enter percentages Eg 20, 20, 10,25, 25.
-
+image.png
 
 Application utilizes historical data(from API) to calculate user's portfolio performance during the following events:​
 9/11 (2001) ​
