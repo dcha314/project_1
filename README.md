@@ -1,4 +1,7 @@
-Portfolio Crisis Analyzer
+
+#Portfolio Crisis Analyzer
+
+
 The application was created for users looking to diversify their portfolio into sectors with low sensitivity to critical events such as Wars/Invasions, Economic Recessions and International Health Crisis(Eg. Covid). The programs allows users to enter their asset percentage allocation in 5 major financial sectors. Subsequently, they are provided with a customized analysis of the portfolio during periods of high market volatility. Lastly,the system returns a list of optimal portfolio allocations for each historical event. This with the intend of helping the average investor protecting their capital against periods of large financial distress.​
 
 #Technologies This application is written in python 3.9.7 with the modules below;
@@ -36,3 +39,4 @@ Application utilizes historical data(from API) to calculate user's portfolio per
 New filtered and coverted datas are plotted in graph via matplotlib and hvplot libraries.
 
 #Contributors BARIS HALIFEOGLU HUANG KAI DANIEL CHA JAVIER
+
